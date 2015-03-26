@@ -1,4 +1,4 @@
-# Design of Java Code Metrics Calculator (Group ::X::)
+# Design of Java Code Metrics Calculator (Group Jeroen)
 
 ## Context
 
