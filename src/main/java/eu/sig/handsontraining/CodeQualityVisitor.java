@@ -13,7 +13,6 @@ import static com.puppycrawl.tools.checkstyle.api.TokenTypes.LOR;
 import static com.puppycrawl.tools.checkstyle.api.TokenTypes.QUESTION;
 import static com.puppycrawl.tools.checkstyle.api.TokenTypes.SINGLE_LINE_COMMENT;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.FileVisitResult;
@@ -32,8 +31,6 @@ import java.util.TreeMap;
 import antlr.Token;
 import antlr.TokenStreamException;
 
-import com.puppycrawl.tools.checkstyle.api.FileContents;
-import com.puppycrawl.tools.checkstyle.api.FileText;
 import com.puppycrawl.tools.checkstyle.grammars.CommentListener;
 import com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaLexer;
 
@@ -78,13 +75,13 @@ public class CodeQualityVisitor extends SimpleFileVisitor<Path> {
         List<Token> tokens = new ArrayList<>();
         try {
             GeneratedJavaLexer lexer = new GeneratedJavaLexer(new StringReader(code));
-            lexer.setCommentListener(new FileContents(new FileText(new File("."), "UTF-8")));
+            lexer.setCommentListener(new DummyCommentListener());
             Token token = lexer.nextToken();
             while (token.getType() != Token.EOF_TYPE) {
                 tokens.add(token);
                 token = lexer.nextToken();
             }
-        } catch (TokenStreamException | IOException e) {
+        } catch (TokenStreamException e) {
             e.printStackTrace(); // ignore and continue
         }
         return tokens;
