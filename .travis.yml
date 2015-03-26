@@ -1,0 +1,8 @@
+language: java
+env:
+  global:
+    secure: cxDvioCn8gkwCXaqpl95BIYBBNJPxb4JYznxBqBok0cVTLRr2D6qunKwBV0C+SwnNAesCWC5/iWQuNc/NLt3q4MqZ1u5dmBYsd15RHsKJvatWoBh/llWwTrKS5fW5B+v+D3AQNpkkFIzKCtidHbhcxqzcfvWYS80Wu5ViK5OvzE=
+
+install: "mvn clean compile assembly:single"
+after_success:
+  - "./deploy-jar.sh target/justtestingjeroen*.jar"
